@@ -8,3 +8,5 @@ acl.addEventListener('reading', () => {
   aclY.textContent = 'aclY:' + acl.y;
   aclZ.textContent = 'aclZ:' + acl.z;
 });
+
+acl.start();
