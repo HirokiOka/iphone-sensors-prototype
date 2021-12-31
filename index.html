@@ -12,6 +12,13 @@
         <li id="acl-z"></li>
       </ul>
     </div>
-    <script src='script.js'></script>
+      <script>
+window.addEventListener("devicemotion", (e) => {
+  const acl = e.acceleration;
+  aclX.textContent = 'aclX:' + acl.x;
+  aclY.textContent = 'aclY:' + acl.y;
+  aclZ.textContent = 'aclZ:' + acl.z;
+});
+    </script>
   </body>
 </html>
