@@ -6,21 +6,25 @@
   </head>
   <body>
     <div id='root'>
-      <ul>Sensor values
+      <h2>Sensor values</h2>
+      <ul>
         <li id="acl-x"></li>
         <li id="acl-y"></li>
         <li id="acl-z"></li>
       </ul>
+      <p id='msg'>msg:</p>
     </div>
       <script>
-        const aclX = document.getElementById("acl-x");
-        const aclY = document.getElementById("acl-y");
-        const aclZ = document.getElementById("acl-z");
+        let aclX = document.getElementById("acl-x");
+        let aclY = document.getElementById("acl-y");
+        let aclZ = document.getElementById("acl-z");
+
         window.addEventListener("devicemotion", (e) => {
+          document.getElementById('msg').textContent = 'event'; 
           aclX.textContent = 'aclX:' + e.acceleration.x;
           aclY.textContent = 'aclY:' + e.acceleration.y;
           aclZ.textContent = 'aclZ:' + e.acceleration.z;
-        });
+        }, true);
     </script>
   </body>
 </html>
