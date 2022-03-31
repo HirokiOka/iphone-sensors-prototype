@@ -20,17 +20,17 @@ btn.addEventListener('click', e => {
       }).catch(console.error);
 });
 */
-window.addEventListener('load', () => {
+window.onload = () => {
   if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
-    DeviceMotionEvent.requestPermission()
-      .then(permissionState => {
-        if (permissionState === 'granted') {
-          window.addEventListener('devicemotion', e => {
-            displayValues(e);
-          });
-        }
-      }).catch(console.error);
-});
+  DeviceMotionEvent.requestPermission()
+    .then(permissionState => {
+      if (permissionState === 'granted') {
+        window.addEventListener('devicemotion', e => {
+          displayValues(e);
+        });
+      }
+    }).catch(console.error);
+}
 
 function displayValues(e) {
   const aclXVal = Math.floor(e.accelerationIncludingGravity.x * 100) / 100;
