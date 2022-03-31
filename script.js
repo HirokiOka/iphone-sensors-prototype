@@ -6,8 +6,21 @@ const rotA = document.getElementById("alpha");
 const rotB = document.getElementById("beta");
 const rotG = document.getElementById("gamma");
 
+/*
 const btn = document.getElementById('btn');
 btn.addEventListener('click', e => {
+  if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
+    DeviceMotionEvent.requestPermission()
+      .then(permissionState => {
+        if (permissionState === 'granted') {
+          window.addEventListener('devicemotion', e => {
+            displayValues(e);
+          });
+        }
+      }).catch(console.error);
+});
+*/
+window.addEventListener('load', () => {
   if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
     DeviceMotionEvent.requestPermission()
       .then(permissionState => {
