@@ -8,10 +8,12 @@ btn.addEventListener('click', e => {
 });
 
 function displayAcc(e) {
-    document.getElementById('msg').textContent = 'event'; 
-    aclX.textContent = 'aclX:' + e.acceleration.x;
-    aclY.textContent = 'aclY:' + e.acceleration.y;
-    aclZ.textContent = 'aclZ:' + e.acceleration.z;
+  const aclXVal = Math.floor(e.acceleration.x * 100) / 100;
+  const aclYVal = Math.floor(e.acceleration.y * 100) / 100;
+  const aclZVal = Math.floor(e.acceleration.z * 100) / 100;
+  aclX.textContent = `aclX: ${aclXVal}`;
+  aclY.textContent = `aclY: ${aclYVal}`;
+  aclZ.textContent = `aclY: ${aclZVal}`;
 }
 
 function onClick() {
