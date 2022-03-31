@@ -5,32 +5,7 @@ const aclZ = document.getElementById("acl-z");
 const rotA = document.getElementById("alpha");
 const rotB = document.getElementById("beta");
 const rotG = document.getElementById("gamma");
-
-/*
 const btn = document.getElementById('btn');
-btn.addEventListener('click', e => {
-  if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
-    DeviceMotionEvent.requestPermission()
-      .then(permissionState => {
-        if (permissionState === 'granted') {
-          window.addEventListener('devicemotion', e => {
-            displayValues(e);
-          });
-        }
-      }).catch(console.error);
-});
-*/
-window.onload = () => {
-  if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
-  DeviceMotionEvent.requestPermission()
-    .then(permissionState => {
-      if (permissionState === 'granted') {
-        window.addEventListener('devicemotion', e => {
-          displayValues(e);
-        });
-      }
-    }).catch(console.error);
-}
 
 function displayValues(e) {
   const aclXVal = Math.floor(e.accelerationIncludingGravity.x * 100) / 100;
@@ -47,4 +22,16 @@ function displayValues(e) {
   rotB.textContent = `beta: ${rotBVal}`;
   rotG.textContent = `gamma: ${rotGVal}`;
 }
+
+btn.addEventListener('click', e => {
+  if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
+  DeviceMotionEvent.requestPermission()
+    .then(permissionState => {
+      if (permissionState === 'granted') {
+        window.addEventListener('devicemotion', e => {
+          displayValues(e);
+        });
+      }
+    }).catch(console.error);
+});
 
