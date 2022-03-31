@@ -2,6 +2,10 @@ const aclX = document.getElementById("acl-x");
 const aclY = document.getElementById("acl-y");
 const aclZ = document.getElementById("acl-z");
 
+const rotA = document.getElementById("acl-x");
+const rotB = document.getElementById("acl-y");
+const rotC = document.getElementById("acl-z");
+
 const btn = document.getElementById('btn');
 btn.addEventListener('click', e => {
   if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
@@ -9,20 +13,25 @@ btn.addEventListener('click', e => {
       .then(permissionState => {
         if (permissionState === 'granted') {
           window.addEventListener('devicemotion', e => {
-            setInterval(() => {
-              displayAcc(e);
-            }, 1000);
+            displayValues(e);
           });
         }
       }).catch(console.error);
 });
 
-function displayAcc(e) {
-  const aclXVal = Math.floor(e.acceleration.x * 100) / 100;
-  const aclYVal = Math.floor(e.acceleration.y * 100) / 100;
-  const aclZVal = Math.floor(e.acceleration.z * 100) / 100;
+function displayValues(e) {
+  const aclXVal = Math.floor(e.accelerationIncludingGravity.x * 100) / 100;
+  const aclYVal = Math.floor(e.accelerationIncludingGravity.y * 100) / 100;
+  const aclZVal = Math.floor(e.accelerationIncludingGravity.z * 100) / 100;
+  const rotAVal = Math.floor(e.rotationRate.alpha * 100) / 100;
+  const rotBVal = Math.floor(e.rotationRate.beta * 100) / 100;
+  const rotGVal = Math.floor(e.rotationRate.gamma * 100) / 100;
   aclX.textContent = `aclX: ${aclXVal}`;
   aclY.textContent = `aclY: ${aclYVal}`;
   aclZ.textContent = `aclY: ${aclZVal}`;
+
+  rotA.textContent = `alpha: ${rotAVal}`;
+  rotB.textContent = `beta: ${rotBVal}`;
+  rotG.textContent = `gamma: ${rotGVal}`;
 }
 
