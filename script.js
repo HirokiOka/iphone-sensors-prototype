@@ -4,7 +4,7 @@ const aclZ = document.getElementById("acl-z");
 
 const rotA = document.getElementById("alpha");
 const rotB = document.getElementById("beta");
-const rotC = document.getElementById("gamma");
+const rotG = document.getElementById("gamma");
 
 const btn = document.getElementById('btn');
 btn.addEventListener('click', e => {
