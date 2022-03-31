@@ -8,9 +8,9 @@ const rotG = document.getElementById("gamma");
 const btn = document.getElementById('btn');
 
 function displayValues(e) {
-  const aclXVal = Math.floor(e.accelerationIncludingGravity.x * 100) / 100;
-  const aclYVal = Math.floor(e.accelerationIncludingGravity.y * 100) / 100;
-  const aclZVal = Math.floor(e.accelerationIncludingGravity.z * 100) / 100;
+  const aclXVal = Math.floor(e.acceleration.x * 100) / 100;
+  const aclYVal = Math.floor(e.acceleration.y * 100) / 100;
+  const aclZVal = Math.floor(e.acceleration.z * 100) / 100;
   const rotAVal = Math.floor(e.rotationRate.alpha * 100) / 100;
   const rotBVal = Math.floor(e.rotationRate.beta * 100) / 100;
   const rotGVal = Math.floor(e.rotationRate.gamma * 100) / 100;
