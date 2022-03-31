@@ -5,7 +5,8 @@
     <title>get sensorValues test</title>
   </head>
   <body>
-    <div id='root'>
+    <div id="root">
+      <button id="btn">Click</button>
       <h2>Sensor values</h2>
       <ul>
         <li id="acl-x"></li>
@@ -15,34 +16,37 @@
       <p id='msg'>msg:</p>
     </div>
       <script>
-        /*
-        const dm = new DeviceMotionEvent('acceleration');
-        window.dm.requestPermission()
-          .then(response => console.log(response));
+      let aclX = document.getElementById("acl-x");
+      let aclY = document.getElementById("acl-y");
+      let aclZ = document.getElementById("acl-z");
 
-        let aclX = document.getElementById("acl-x");
-        let aclY = document.getElementById("acl-y");
-        let aclZ = document.getElementById("acl-z");
+      const btn = document.getElementById('btn');
+      btn.addEventListener('click', e => {
+        onClick();
+      });
 
-        window.addEventListener("devicemotion", (e) => {
+      function displayAcc(e) {
           document.getElementById('msg').textContent = 'event'; 
           aclX.textContent = 'aclX:' + e.acceleration.x;
           aclY.textContent = 'aclY:' + e.acceleration.y;
           aclZ.textContent = 'aclZ:' + e.acceleration.z;
-        }, true);
-       */
-        DeviceMotionEvent.requestPermission()
-          .then(permissionState => {
-            if (permissionState === 'granted') {
-              window.addEventListener("devicemotion", (e) => {
-                document.getElementById('msg').textContent = 'event'; 
-                aclX.textContent = 'aclX:' + e.acceleration.x;
-                aclY.textContent = 'aclY:' + e.acceleration.y;
-                aclZ.textContent = 'aclZ:' + e.acceleration.z;
-              }, true);
-            }
-          })
-          .catch(console.error);
+      }
+
+      function onClick() {
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+          DeviceMotionEvent.requestPermission()
+            .then(permissionState => {
+              if (permissionState === 'granted') {
+                window.addEventListener('devicemotion', e => {
+                    displayAcc(e);
+                });
+              }
+            })
+            .catch(console.error);
+        } else {
+            console.log('requestPermission is not a function');
+        }
+      }
     </script>
   </body>
 </html>
