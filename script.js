@@ -1,10 +1,20 @@
-let aclX = document.getElementById("acl-x");
-let aclY = document.getElementById("acl-y");
-let aclZ = document.getElementById("acl-z");
+const aclX = document.getElementById("acl-x");
+const aclY = document.getElementById("acl-y");
+const aclZ = document.getElementById("acl-z");
 
 const btn = document.getElementById('btn');
 btn.addEventListener('click', e => {
-  onClick();
+  if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
+    DeviceMotionEvent.requestPermission()
+      .then(permissionState => {
+        if (permissionState === 'granted') {
+          window.addEventListener('devicemotion', e => {
+            setInterval(() => {
+              displayAcc(e);
+            }, 1000);
+          });
+        }
+      }).catch(console.error);
 });
 
 function displayAcc(e) {
@@ -16,18 +26,3 @@ function displayAcc(e) {
   aclZ.textContent = `aclY: ${aclZVal}`;
 }
 
-function onClick() {
-  if (typeof DeviceMotionEvent.requestPermission === 'function') {
-    DeviceMotionEvent.requestPermission()
-      .then(permissionState => {
-        if (permissionState === 'granted') {
-          window.addEventListener('devicemotion', e => {
-              displayAcc(e);
-          });
-        }
-      })
-      .catch(console.error);
-  } else {
-      console.log('requestPermission is not a function');
-  }
-}
