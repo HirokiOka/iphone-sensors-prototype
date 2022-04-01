@@ -36,7 +36,8 @@ btn.addEventListener('click', async () => {
     elapsedTime = Math.round((nowDate - startDate) / 1000);
   }, 1000);
   window.addEventListener('devicemotion', e => {
-    if (elapsedTime % 2 === 0) displayValues(e);
+    if (elapsedTime % 2 !== 0) return;
+    displayValues(e);
   });
 });
 
