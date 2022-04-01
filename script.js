@@ -38,7 +38,7 @@ btn.addEventListener('click', async () => {
     timer.textContent = `timer: ${elapsedTime}`;
   }, 500);
   window.addEventListener('devicemotion', e => {
-    if (elapsedTime % 2000 < 200) {
+    if (elapsedTime % 2000 < 20) {
       displayValues(e);
     }
   });
