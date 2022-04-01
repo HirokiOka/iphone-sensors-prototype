@@ -7,6 +7,7 @@ const rotB = document.getElementById("beta");
 const rotG = document.getElementById("gamma");
 
 const btn = document.getElementById('btn');
+const timer = document.getElementById('timer');
 
 function displayValues(e) {
   const aclXVal = Math.floor(e.acceleration.x * 100) / 100;
@@ -24,24 +25,18 @@ function displayValues(e) {
   rotG.textContent = `gamma: ${rotGVal}`;
 }
 
-/*
 btn.addEventListener('click', async () => {
-  console.log('it works');
   if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
-  let permission = await DeviceMotionEvent.requestPermission();
+  const startDate = Date.now();
+  const permission = await DeviceMotionEvent.requestPermission();
   if (permission !== 'granted') return;
+  setInterval(() => {
+    const nowDate = Date.now();
+    const elapsedTime = Math.round((nowDate - startDate) / 1000);
+    timer.textContent = `timer: ${elapsedTime}`;
+  }, 1000);
   window.addEventListener('devicemotion', e => {
     displayValues(e);
   });
 });
-*/
 
-console.log('it works');
-if (typeof DeviceMotionEvent.requestPermission === 'function') {
-  const permission = await DeviceMotionEvent.requestPermission();
-  if (permission === 'granted') {
-    window.addEventListener('devicemotion', e => {
-      displayValues(e);
-    });
-  }
-}
