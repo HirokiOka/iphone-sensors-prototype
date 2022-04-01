@@ -25,19 +25,6 @@ function displayValues(e) {
 }
 
 /*
-btn.addEventListener('click', e => {
-  console.log('it works');
-  if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
-  DeviceMotionEvent.requestPermission()
-    .then(permissionState => {
-      if (permissionState === 'granted') {
-        window.addEventListener('devicemotion', e => {
-          displayValues(e);
-        });
-      }
-    }).catch(console.error);
-});
-*/
 btn.addEventListener('click', async () => {
   console.log('it works');
   if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
@@ -47,3 +34,14 @@ btn.addEventListener('click', async () => {
     displayValues(e);
   });
 });
+*/
+
+console.log('it works');
+if (typeof DeviceMotionEvent.requestPermission === 'function') {
+  const permission = await DeviceMotionEvent.requestPermission();
+  if (permission === 'granted') {
+    window.addEventListener('devicemotion', e => {
+      displayValues(e);
+    });
+  }
+}
