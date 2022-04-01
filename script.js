@@ -5,6 +5,7 @@ const aclZ = document.getElementById("acl-z");
 const rotA = document.getElementById("alpha");
 const rotB = document.getElementById("beta");
 const rotG = document.getElementById("gamma");
+
 const btn = document.getElementById('btn');
 
 function displayValues(e) {
@@ -23,7 +24,9 @@ function displayValues(e) {
   rotG.textContent = `gamma: ${rotGVal}`;
 }
 
+/*
 btn.addEventListener('click', e => {
+  console.log('it works');
   if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
   DeviceMotionEvent.requestPermission()
     .then(permissionState => {
@@ -34,4 +37,13 @@ btn.addEventListener('click', e => {
       }
     }).catch(console.error);
 });
-
+*/
+btn.addEventListener('click', async () => {
+  console.log('it works');
+  if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
+  let permission = await DeviceMotionEvent.requestPermission();
+  if (permission !== 'granted') return;
+  window.addEventListener('devicemotion', e => {
+    displayValues(e);
+  });
+});
