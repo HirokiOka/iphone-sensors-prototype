@@ -7,6 +7,7 @@ const rotB = document.getElementById("beta");
 const rotG = document.getElementById("gamma");
 
 const btn = document.getElementById('btn');
+const timer = document.getElementById('timer');
 
 let elapsedTime = 0;
 
@@ -33,10 +34,11 @@ btn.addEventListener('click', async () => {
   if (permission !== 'granted') return;
   setInterval(() => {
     const nowDate = Date.now();
-    elapsedTime = Math.round((nowDate - startDate) / 1000);
-  }, 1000);
+    elapsedTime = Math.round(nowDate - startDate);
+    timer.textContent = `timer: ${elapsedTime}`;
+  }, 500);
   window.addEventListener('devicemotion', e => {
-    if (elapsedTime % 2 !== 0) return;
+    if (elapsedTime % 2000 !== 0) return;
     displayValues(e);
   });
 });
