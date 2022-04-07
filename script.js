@@ -8,7 +8,7 @@ const rotG = document.getElementById("gamma");
 
 const btn = document.getElementById('btn');
 const msg = document.getElementById('msg');
-const sensorValues = {
+let sensorValues = {
   'aclXVal': 0, 'aclYVal' : 0, 'aclZVal' : 0, 'rotAVal' : 0, 'rotBVal' : 0, 'rotGVal' : 0
 };
 
