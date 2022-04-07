@@ -7,6 +7,7 @@ const rotB = document.getElementById("beta");
 const rotG = document.getElementById("gamma");
 
 const btn = document.getElementById('btn');
+const msg = document.getElementById('msg');
 const sensorValues = {};
 
 function getSensorValues(e) {
@@ -32,7 +33,8 @@ function displaySensorValues(values) {
 }
 
 function updateValues (values) {
-  Object.keys(values).forEach((i, k) => {
+  msg.textContent = values;
+  Object.keys(values).forEach((_, k) => {
     sensorValues[k] = values[k];
   });
 }
