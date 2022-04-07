@@ -35,8 +35,8 @@ function displaySensorValues(values) {
 }
 
 function updateValues (values) {
-  msg.textContent = Object.keys(values);
   Object.keys(values).forEach((_, k) => {
+    msg.textContent = values[k];
     sensorValues[k] = values[k];
   });
 }
