@@ -22,7 +22,6 @@ function getSensorValues(e) {
   const values = {
     aclXVal, aclYVal, aclZVal, rotAVal, rotBVal, rotGVal
   };
-  msg.textContent = JSON.stringify(values);
   return values;
 }
 
@@ -38,6 +37,7 @@ function displaySensorValues(values) {
 function updateValues (values) {
   Object.keys(values).forEach((_, k) => {
     sensorValues[k] = values[k];
+    msg.textContent = JSON.stringify(values[k]);
   });
 }
 
