@@ -8,7 +8,9 @@ const rotG = document.getElementById("gamma");
 
 const btn = document.getElementById('btn');
 const msg = document.getElementById('msg');
-const sensorValues = {};
+const sensorValues = {
+  'aclXVal': 0, 'aclYVal' : 0, 'aclZVal' : 0, 'rotAVal' : 0, 'rotBVal' : 0, 'rotGVal' : 0
+};
 
 function getSensorValues(e) {
   const aclXVal = Math.floor(e.acceleration.x * 100) / 100;
