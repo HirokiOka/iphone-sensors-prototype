@@ -7,6 +7,7 @@ const rotB = document.getElementById("beta");
 const rotG = document.getElementById("gamma");
 
 const btn = document.getElementById('btn');
+const sensorValues = {};
 
 function getSensorValues(e) {
   const aclXVal = Math.floor(e.acceleration.x * 100) / 100;
@@ -25,19 +26,27 @@ function displaySensorValues(values) {
   aclX.textContent = `aclX: ${values.aclXVal}`;
   aclY.textContent = `aclY: ${values.aclYVal}`;
   aclZ.textContent = `aclY: ${values.aclZVal}`;
-
   rotA.textContent = `alpha: ${values.rotAVal}`;
   rotB.textContent = `beta: ${values.rotBVal}`;
   rotG.textContent = `gamma: ${values.rotGVal}`;
 }
+
+function updateValues (values) {
+  Object.keys(values).forEach((i, k) => {
+    sensorValues[k] = values[k];
+  });
+}
+
+setInterval(() => {
+  displaySensorValues(sensorValues);
+}, 1000);
 
 btn.addEventListener('click', async () => {
   if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
   const permission = await DeviceMotionEvent.requestPermission();
   if (permission !== 'granted') return;
   window.addEventListener('devicemotion', async (e) => {
-    const sensorValues = getSensorValues(e);
-    displaySensorValues(sensorValues);
+    const currentSensorValues = getSensorValues(e);
+    updateValues(currentSensorValues);
   });
 });
-
