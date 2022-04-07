@@ -34,10 +34,10 @@ function displaySensorValues(values) {
   rotG.textContent = `gamma: ${values.rotGVal}`;
 }
 
-function updateValues (values) {
-  Object.keys(values).forEach((k, _) => {
-    sensorValues[k] = values[k];
-    msg.textContent = values[k];
+function updateValues (oldValues, newValues) {
+  Object.keys(newValues).forEach((k, _) => {
+    oldValues[k] = newValues[k];
+    msg.textContent = newValues[k];
   });
 }
 
@@ -52,6 +52,6 @@ btn.addEventListener('click', async () => {
   if (permission !== 'granted') return;
   window.addEventListener('devicemotion', async (e) => {
     const currentSensorValues = getSensorValues(e);
-    updateValues(currentSensorValues);
+    updateValues(sensorValues, currentSensorValues);
   });
 });
