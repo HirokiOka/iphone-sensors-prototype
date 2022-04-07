@@ -1,16 +1,15 @@
 const aclX = document.getElementById("acl-x");
 const aclY = document.getElementById("acl-y");
 const aclZ = document.getElementById("acl-z");
-
 const rotA = document.getElementById("alpha");
 const rotB = document.getElementById("beta");
 const rotG = document.getElementById("gamma");
-
 const btn = document.getElementById('btn');
 const msg = document.getElementById('msg');
 let sensorValues = {
   'aclXVal': 0, 'aclYVal' : 0, 'aclZVal' : 0, 'rotAVal' : 0, 'rotBVal' : 0, 'rotGVal' : 0
 };
+
 
 function checkIsStorageAvailable (type) {
   let storage;
@@ -43,6 +42,11 @@ function getSensorValues(e) {
   return values;
 }
 
+function setDummyValues(values) {
+  const getRandVal = max => Math.floor((Math.random() * max * 100) / 100);
+  Object.keys(values).forEach((k, _) => values[k] = getRandVal(100) );
+}
+
 function displaySensorValues(values) {
   aclX.textContent = `aclX: ${values.aclXVal}`;
   aclY.textContent = `aclY: ${values.aclYVal}`;
@@ -53,13 +57,21 @@ function displaySensorValues(values) {
 }
 
 function updateValues(oldValues, newValues) {
-  Object.keys(newValues).forEach((k, _) => {
-    oldValues[k] = newValues[k];
-  });
+  Object.keys(newValues).forEach((k, _) => oldValues[k] = newValues[k] );
+}
+
+function getCurrentTimestampAsString() {
+  const currentTimeString = new Date().toLocaleString();
+  const currentMilliseconds = new Date().getMilliseconds();
+  const currentTimestamp = currentTimeString + '.' + currentMilliseconds;
+  return currentTimestamp;
 }
 
 if (checkIsStorageAvailable('localStorage')) {
   setInterval(() => {
+    setDummyValues(sensorValues);
+    console.log(getCurrentTimestampAsString());
+    //localStorage.setItem(currentTimestamp, sensorValues);
     displaySensorValues(sensorValues);
   }, 1000);
 } else {
