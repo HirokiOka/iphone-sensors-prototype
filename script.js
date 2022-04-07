@@ -12,6 +12,24 @@ let sensorValues = {
   'aclXVal': 0, 'aclYVal' : 0, 'aclZVal' : 0, 'rotAVal' : 0, 'rotBVal' : 0, 'rotGVal' : 0
 };
 
+function checkIsStorageAvailable (type) {
+  let storage;
+  try {
+    storage = window[type];
+    const x = '__storage_test__';
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  } catch (e) {
+    return e instanceof DOMException && (
+			e.code === 22 ||
+			e.code === 1014 ||
+			e.name === 'QuotaExceededError' ||
+			e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+			(storage && storage.length !== 0);
+	}
+}
+
 function getSensorValues(e) {
   const aclXVal = Math.floor(e.acceleration.x * 100) / 100;
   const aclYVal = Math.floor(e.acceleration.y * 100) / 100;
@@ -34,18 +52,21 @@ function displaySensorValues(values) {
   rotG.textContent = `gamma: ${values.rotGVal}`;
 }
 
-function updateValues (oldValues, newValues) {
+function updateValues(oldValues, newValues) {
   Object.keys(newValues).forEach((k, _) => {
     oldValues[k] = newValues[k];
-    msg.textContent = newValues[k];
   });
 }
 
-setInterval(() => {
-  displaySensorValues(sensorValues);
-}, 1000);
+if (checkIsStorageAvailable('localStorage')) {
+  setInterval(() => {
+    displaySensorValues(sensorValues);
+  }, 1000);
+} else {
+  window.alert('Local storage is not available in this browser');
+}
 
-updateValues(sensorValues);
+
 btn.addEventListener('click', async () => {
   if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
   const permission = await DeviceMotionEvent.requestPermission();
