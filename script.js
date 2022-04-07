@@ -35,9 +35,9 @@ function displaySensorValues(values) {
 }
 
 function updateValues (values) {
-  Object.keys(values).forEach((_, k) => {
+  Object.keys(values).forEach((k, _) => {
     sensorValues[k] = values[k];
-    msg.textContent = JSON.stringify(values[k]);
+    msg.textContent = values[k];
   });
 }
 
@@ -45,6 +45,7 @@ setInterval(() => {
   displaySensorValues(sensorValues);
 }, 1000);
 
+updateValues(sensorValues);
 btn.addEventListener('click', async () => {
   if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
   const permission = await DeviceMotionEvent.requestPermission();
