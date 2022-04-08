@@ -19,6 +19,7 @@ const collectionName = "test";
 
 async function postDataChunck(database, collectionName, dataObj) {
   try {
+    console.log(typeof dataObj, dataObj);
     const docRef = await addDoc(collection(database, collectionName), dataObj);
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -47,7 +48,10 @@ if (checkIsStorageAvailable('localStorage')) {
     localStorage.setItem(currentTimestamp, JSON.stringify(sensorValues));
     displaySensorValues(sensorValues);
     if (localStorage.length === 10) {
-      const postData = { ...localStorage };
+      let postData = {};
+      Object.keys(localStorage).forEach((k, _) => {
+        postData[k] = JSON.parse(localStorage[k]);
+      });
       postDataChunck(db, collectionName, postData);
       localStorage.clear();
     }
