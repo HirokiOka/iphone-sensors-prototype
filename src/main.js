@@ -1,18 +1,10 @@
 import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "./firebaseConfig.js";
 import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import { checkIsStorageAvailable, getSensorValues, setDummyValues, updateValues, getCurrentTimestampAsString } from "./functions.js";
 import { displaySensorValues, displayMessage } from "./display.js";
 
 const intervalMillisec = 1000;
-const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID
-};
-
 const sensorValues = {
   "aclXVal": 0,
   "aclYVal": 0,
@@ -21,7 +13,6 @@ const sensorValues = {
   "rotBVal": 0,
   "rotGVal": 0
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const collectionName = "test";
@@ -51,13 +42,13 @@ async function getAllDbData(database, collectionName) {
 if (checkIsStorageAvailable('localStorage')) {
   localStorage.clear();
   setInterval(async () => {
-    setDummyValues(sensorValues);
+    //setDummyValues(sensorValues);
     const currentTimestamp = getCurrentTimestampAsString();
     localStorage.setItem(currentTimestamp, JSON.stringify(sensorValues));
     displaySensorValues(sensorValues);
     if (localStorage.length === 10) {
       const postData = { ...localStorage };
-      //postDataChunck(db, collectionName, postData);
+      postDataChunck(db, collectionName, postData);
       localStorage.clear();
     }
   }, intervalMillisec);
