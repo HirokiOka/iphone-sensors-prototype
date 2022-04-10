@@ -4,17 +4,23 @@ const aclZ = document.getElementById("acl-z");
 const rotA = document.getElementById("alpha");
 const rotB = document.getElementById("beta");
 const rotG = document.getElementById("gamma");
-const msg = document.getElementById('msg');
+const msg = document.getElementById("msg");
+
+const valueElements = {
+  "aclX": aclX,
+  "aclY": aclY,
+  "aclZ": aclZ,
+  "rotA": rotA,
+  "rotB": rotB,
+  "rotG": rotG
+};
 
 export function displaySensorValues(values) {
-  aclX.textContent = `aclX: ${values.aclXVal}`;
-  aclY.textContent = `aclY: ${values.aclYVal}`;
-  aclZ.textContent = `aclY: ${values.aclZVal}`;
-  rotA.textContent = `alpha: ${values.rotAVal}`;
-  rotB.textContent = `beta: ${values.rotBVal}`;
-  rotG.textContent = `gamma: ${values.rotGVal}`;
+  Object.keys(values).forEach((k, _) => {
+    valueElements[k].textContent = values[k];
+  });
 }
 
 export function displayMessage(message) {
-  msg.textContent = `msg: ${message}`;
+  msg.textContent = message;
 }
