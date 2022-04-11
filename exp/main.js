@@ -1,3 +1,6 @@
 window.addEventListener('load', e => {
-  window.alert('loaded');
+  if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
+  const permission = await DeviceMotionEvent.requestPermission();
+  if (permission !== 'granted') return;
+  window.alert('success');
 });
