@@ -1,5 +1,5 @@
-import { postDataChunck } from "./firebaseConfig.js";
-import { checkIsStorageAvailable, getCurrentTimestampAsString } from "./utils.js";
+import { postDataChunck } from "./firebaseConfig";
+import { checkIsStorageAvailable, getCurrentTimestampAsString } from "./utils";
 
 const intervalMillisec: number = 1000;
 const postDataSize: number = 10;

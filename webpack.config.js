@@ -3,10 +3,21 @@ const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: './src/main.js',
+  mode: 'development',
+  entry: './ts-src/main.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
+  },
+  module: {
+    rules: [
+      {
+        loader: 'ts-loader'
+      }
+    ]
   },
   experiments: {
     topLevelAwait: true

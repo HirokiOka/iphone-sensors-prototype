@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "webpack --mode=development",
+    "build": "webpack",
     "serve": "live-server dist"
   },
   "repository": {
@@ -24,6 +24,7 @@
   "devDependencies": {
     "dotenv": "^16.0.0",
     "dotenv-webpack": "^7.1.0",
+    "ts-loader": "^9.2.8",
     "tslint": "^6.1.3",
     "typescript": "^4.6.3",
     "webpack": "^5.71.0",

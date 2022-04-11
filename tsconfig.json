@@ -1,14 +1,8 @@
 {
   "compilerOptions": {
     "target": "es2015",                                  
-    "module": "es2015",                                
-    "outDir": "src",
+    "module": "commonjs",                                
     "esModuleInterop": true,                             
-    "forceConsistentCasingInFileNames": true,             
-    "strict": true,                                          
-    "skipLibCheck": true                                 
-  },
-  "include": [
-    "ts-src"
-  ]
+    "strict": true                                         
+  }
 }

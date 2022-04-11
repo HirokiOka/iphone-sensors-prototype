@@ -45,7 +45,7 @@ function getCurrentTimestampAsString(): string {
   return currentTimestamp;
 }
 
-async function postStorageData(dataObj: SensorValues, db, collectionName: string) {
+async function postStorageData(dataObj: SensorValues, db: any, collectionName: string) {
   try {
     const docRef = await addDoc(collection(db, collectionName), dataObj);
   } catch (e) {
