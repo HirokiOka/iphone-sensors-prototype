@@ -33,7 +33,7 @@ async function postDataChunck(collectionName: string, dataObj: object) {
 async function getAllDbData(collectionName: string) {
   const querySnapshot = await getDocs(collection(db, collectionName));
   const result: any = {};
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((doc: any) => {
     const allData = doc.data();
     Object.keys(allData).forEach((timestamp: string, _) => {
       result[timestamp] = JSON.parse(allData[timestamp]);

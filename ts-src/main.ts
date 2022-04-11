@@ -1,11 +1,11 @@
-import { postDataChunck, getAllDbData } from "./firebaseConfig.js";
-import { checkIsStorageAvailable, fixSensorValues, setDummyValues, updateValues, getCurrentTimestampAsString } from "./utils.js";
+import { postDataChunck } from "./firebaseConfig.js";
+import { checkIsStorageAvailable, getCurrentTimestampAsString } from "./utils.js";
 
 const intervalMillisec: number = 1000;
 const postDataSize: number = 10;
 const collectionName: string = "test";
 
-let sensorValues: {
+interface SensorValues {
   "aclX": number | null;
   "aclY": number | null;
   "aclZ": number | null;
@@ -13,7 +13,8 @@ let sensorValues: {
   "rotB": number | null;
   "rotG": number | null
 };
-sensorValues = {
+
+let sensorValues: SensorValues = {
   "aclX": 0.00,
   "aclY": 0.00,
   "aclZ": 0.00,
@@ -22,15 +23,13 @@ sensorValues = {
   "rotG": 0.00
 };
 
-
 if (checkIsStorageAvailable()) {
   localStorage.clear();
   setInterval(async () => {
-    setDummyValues(sensorValues);
     const currentTimestamp: string = getCurrentTimestampAsString();
     localStorage.setItem(currentTimestamp, JSON.stringify(sensorValues));
     if (localStorage.length === postDataSize) {
-      let postData = {};
+      let postData: object = {};
       Object.entries({ ...localStorage }).forEach(([key, value]) => postData[key] = JSON.parse(value));
       postDataChunck(collectionName, postData);
       localStorage.clear();
@@ -56,8 +55,6 @@ if (btn != null) {
         "rotB": e.rotationRate.beta,
         "rotG": e.rotationRate.gamma
       };
-      const currentSensorValues: any = fixSensorValues(sensorValues);
-      updateValues(sensorValues, currentSensorValues);
     });
   });
 }
