@@ -44,6 +44,7 @@ async function getRequestPermission(): Promise<string> {
   return await DeviceMotionEvent.requestPermission();
 }
 
+const aclX: HTMLElement | null = document.getElementById("acl-x");
 const btn: HTMLElement | null = document.getElementById('btn');
 if (btn != null) {
   btn.addEventListener('click', async () => {
@@ -59,6 +60,8 @@ if (btn != null) {
         "rotB": e.rotationRate.beta,
         "rotG": e.rotationRate.gamma
       };
+      if (aclX == null) return;
+      aclX.textContent = sensorValues["aclX"].toString();
     });
   });
 }
