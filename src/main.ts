@@ -28,7 +28,7 @@ if (checkIsStorageAvailable()) {
   setInterval(async () => {
     const currentTimestamp: string = getCurrentTimestampAsString();
     localStorage.setItem(currentTimestamp, JSON.stringify(sensorValues));
-    if (localStorage.length === postDataSize) {
+    if (localStorage.length >= postDataSize) {
       let postData: object = {};
       Object.entries({ ...localStorage }).forEach(([key, value]) => postData[key] = JSON.parse(value));
       postDataChunck(collectionName, postData);
@@ -39,11 +39,15 @@ if (checkIsStorageAvailable()) {
   window.alert('Local storage is not available in this browser');
 }
 
+async function getRequestPermission(): Promise<string> {
+  if (typeof DeviceMotionEvent.requestPermission !== 'function') return 'denied';
+  return await DeviceMotionEvent.requestPermission();
+}
+
 const btn: HTMLElement | null = document.getElementById('btn');
 if (btn != null) {
   btn.addEventListener('click', async () => {
-    if (typeof DeviceMotionEvent.requestPermission !== 'function') return;
-    const permission: string = await DeviceMotionEvent.requestPermission();
+    const permission: string = await getRequestPermission();
     if (permission !== 'granted') return;
     window.addEventListener('devicemotion', async (e: DeviceMotionEvent) => {
       if ((e.acceleration == null) || e.rotationRate == null) return;

@@ -4,7 +4,7 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
-  entry: './ts-src/main.ts',
+  entry: './out/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -12,18 +12,11 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js']
   },
-  module: {
-    rules: [
-      {
-        loader: 'ts-loader'
-      }
-    ]
-  },
   experiments: {
     topLevelAwait: true
   },
   devtool: 'eval-source-map',
   plugins: [
-    new Dotenv()
+    new Dotenv(),
   ]
 };

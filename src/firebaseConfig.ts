@@ -22,7 +22,7 @@ const firebaseConfig: Config = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-async function postDataChunck(collectionName: string, dataObj: object) {
+async function postDataChunck(collectionName: string, dataObj: object): Promise<void> {
   try {
     const docRef = await addDoc(collection(db, collectionName), dataObj);
   } catch (e) {
@@ -30,7 +30,7 @@ async function postDataChunck(collectionName: string, dataObj: object) {
   }
 }
 
-async function getAllDbData(collectionName: string) {
+async function getAllDbData(collectionName: string): Promise<object> {
   const querySnapshot = await getDocs(collection(db, collectionName));
   const result: any = {};
   querySnapshot.forEach((doc: any) => {
