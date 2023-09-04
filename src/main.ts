@@ -6,12 +6,12 @@ const postDataSize: number = 10;
 const collectionName: string = "test";
 
 interface SensorValues {
-  "aclX": number | null;
-  "aclY": number | null;
-  "aclZ": number | null;
-  "rotA": number | null;
-  "rotB": number | null;
-  "rotG": number | null
+  "aclX": number;
+  "aclY": number;
+  "aclZ": number;
+  "rotA": number;
+  "rotB": number;
+  "rotG": number;
 };
 
 let sensorValues: SensorValues = {
@@ -27,12 +27,14 @@ if (checkIsStorageAvailable()) {
   localStorage.clear();
   setInterval(async () => {
     const currentTimestamp: string = getCurrentTimestampAsString();
-    localStorage.setItem(currentTimestamp, JSON.stringify(sensorValues));
+    //localStorage.setItem(currentTimestamp, JSON.stringify(sensorValues));
     if (localStorage.length >= postDataSize) {
       let postData: object = {};
+      /*
       Object.entries({ ...localStorage }).forEach(([key, value]) => postData[key] = JSON.parse(value));
       //postDataChunck(collectionName, postData);
       localStorage.clear();
+      */
     }
   }, intervalMillisec);
 } else {
@@ -53,15 +55,15 @@ if (btn != null) {
     window.addEventListener('devicemotion', async (e: DeviceMotionEvent) => {
       if ((e.acceleration == null) || e.rotationRate == null) return;
       sensorValues = {
-        "aclX": e.acceleration.x,
-        "aclY": e.acceleration.y,
-        "aclZ": e.acceleration.z,
-        "rotA": e.rotationRate.alpha,
-        "rotB": e.rotationRate.beta,
-        "rotG": e.rotationRate.gamma
+        "aclX": e.acceleration.x ?? 0.00,
+        "aclY": e.acceleration.y ?? 0.00,
+        "aclZ": e.acceleration.z ?? 0.00,
+        "rotA": e.rotationRate.alpha ?? 0.00,
+        "rotB": e.rotationRate.beta ?? 0.00,
+        "rotG": e.rotationRate.gamma ?? 0.00
       };
-      if (aclX == null) return;
-      aclX.textContent = sensorValues["aclX"].toString() ?? '';
+      if (aclX === null) return;
+      aclX.textContent = sensorValues["aclX"].toString() ?? 'empty';
     });
   });
 }
