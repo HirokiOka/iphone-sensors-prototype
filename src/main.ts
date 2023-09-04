@@ -1,4 +1,4 @@
-import { postDataChunck } from "./firebaseConfig";
+//import { postDataChunck } from "./firebaseConfig";
 import { checkIsStorageAvailable, getCurrentTimestampAsString } from "./utils";
 
 const intervalMillisec: number = 1000;
@@ -31,7 +31,7 @@ if (checkIsStorageAvailable()) {
     if (localStorage.length >= postDataSize) {
       let postData: object = {};
       Object.entries({ ...localStorage }).forEach(([key, value]) => postData[key] = JSON.parse(value));
-      postDataChunck(collectionName, postData);
+      //postDataChunck(collectionName, postData);
       localStorage.clear();
     }
   }, intervalMillisec);
@@ -61,7 +61,7 @@ if (btn != null) {
         "rotG": e.rotationRate.gamma
       };
       if (aclX == null) return;
-      aclX.textContent = sensorValues["aclX"].toString();
+      aclX.textContent = sensorValues["aclX"].toString() ?? '';
     });
   });
 }
