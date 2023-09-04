@@ -46,7 +46,16 @@ async function getRequestPermission(): Promise<string> {
   return await DeviceMotionEvent.requestPermission();
 }
 
-const aclX: HTMLElement | null = document.getElementById("acl-x");
+const aclX = document.getElementById("acl-x") as HTMLElement;
+const aclY = document.getElementById("acl-y") as HTMLElement;
+const aclZ = document.getElementById("acl-z") as HTMLElement;
+
+const rotA = document.getElementById("alpha") as HTMLElement;
+const rotB = document.getElementById("beta") as HTMLElement;
+const rotG = document.getElementById("gamma") as HTMLElement;
+const sensorDomTextContent = {
+  
+};
 const btn: HTMLElement | null = document.getElementById('btn');
 if (btn != null) {
   btn.addEventListener('click', async () => {
@@ -62,8 +71,12 @@ if (btn != null) {
         "rotB": e.rotationRate.beta ?? 0.00,
         "rotG": e.rotationRate.gamma ?? 0.00
       };
-      if (aclX === null) return;
-      aclX.textContent = sensorValues["aclX"].toString() ?? 'empty';
+      aclX.textContent = sensorValues["aclX"].toFixed(2).toString() ?? 'empty';
+      aclY.textContent = sensorValues["aclY"].toFixed(2).toString() ?? 'empty';
+      aclZ.textContent = sensorValues["aclZ"].toFixed(2).toString() ?? 'empty';
+      rotA.textContent = sensorValues["rotA"].toFixed(2).toString() ?? 'empty';
+      rotB.textContent = sensorValues["rotB"].toFixed(2).toString() ?? 'empty';
+      rotG.textContent = sensorValues["rotG"].toFixed(2).toString() ?? 'empty';
     });
   });
 }
